@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+                          
 
 <head>
   <meta charset="UTF-8">
@@ -50,6 +51,15 @@
 </head>
 
 <body>
+
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "909e1a3ee1904b62ad1930e72afa6b55"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
+  
   <main>
     <form>
       <fieldset>
@@ -102,6 +112,135 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+    let consoleLog = errorBtns[0];
+
+    consoleLog.addEventListener('click', log => {
+      let output = document.querySelector('output');
+      console.log("No error to log");
+    });
+
+    let consoleError = errorBtns[1];
+
+    consoleError.addEventListener('click', error => {
+      let output = document.querySelector('output');
+      console.error("Output of the error calculator is: " + output);
+    });
+
+    let consoleCount = errorBtns[2];
+
+    consoleCount.addEventListener('click', count => {
+      let output = document.querySelector('output');
+      console.count(output);
+    });
+
+    let consoleWarn = errorBtns[3];
+
+    consoleWarn.addEventListener('click', warn => {
+      console.warn("No warning to relay");
+    });
+
+    let consoleAssert = errorBtns[4];
+
+    consoleAssert.addEventListener('click', assert => {
+      let output = document.querySelector('output');
+      console.assert(output == "", "Output does not contain data");
+    });
+
+    let consoleClear = errorBtns[5];
+
+    consoleClear.addEventListener('click', clear => {
+      console.clear();
+    });
+
+    let consoleDir = errorBtns[6];
+
+    consoleDir.addEventListener('click', dir => {
+      let output = document.querySelector('output');
+      console.dir(output);
+    });
+
+    let consoleDirxml = errorBtns[7];
+
+    consoleDirxml.addEventListener('click', xml => {
+      let output = document.querySelector('output');
+      console.dirxml(output);
+    });
+
+    let consoleGroupStart = errorBtns[8];
+
+    consoleGroupStart.addEventListener('click', group => {
+      console.group();
+    });
+
+    let consoleGroupEnd = errorBtns[9];
+
+    consoleGroupEnd.addEventListener('click', groupEnd => {
+      console.groupEnd();
+    });
+
+    let consoleTable = errorBtns[10];
+
+    consoleTable.addEventListener('click', table => {
+      let output = document.querySelector('output');
+      let firstNum = document.querySelector('#first-num').value;
+      let secondNum = document.querySelector('#second-num').value;
+      console.table([firstNum, secondNum, output]);
+    });
+
+    let startTimer = errorBtns[11];
+
+    startTimer.addEventListener('click', start => {
+      console.time("start");
+    });
+
+    let endTimer = errorBtns[12];
+
+    endTimer.addEventListener('click', end => {
+      console.timeEnd("start");
+    });
+
+    let consoleTrace = errorBtns[13];
+
+    consoleTrace.addEventListener('click', trace => {
+      console.trace();
+    });
+
+    class computeError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = "Compute Error";
+      }
+    }
+
+    function getInput(input) {
+      if(input == "one") {
+        throw new computeError("Must use numbers not letters");
+      }
+    }
+
+    let output = document.querySelector('output');
+    let firstNum = document.querySelector('#first-num').value;
+    let secondNum = document.querySelector('#second-num').value;
+    let operator = document.querySelector('#operator').value;
+    firstNum = "one";
+    secondNum = "b";
+
+    try {
+      getInput(firstNum.innerHTML);
+      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+    } catch (err) {
+      if (err instanceof computeError) {
+        alert("unable to compute output" + err);
+      } else {
+        throw err;
+      }
+    } finally {
+      output.innerHTML = "";
+    }
+
+    if(window.onerror){
+      console.log("error");
+    }
   </script>
 </body>
 
